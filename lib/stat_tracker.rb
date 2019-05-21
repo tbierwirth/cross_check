@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 require './lib/game'
 require './lib/game_team_stats'
@@ -13,9 +14,10 @@ class StatTracker
 
   def self.from_csv
     CSV.foreach(@team_info_path, headers: true) do |row|
-      @teams << row
+      @teams << TeamInfo.new(row)
     end
     @teams.count
+    # binding.pry
   end
 
 end
