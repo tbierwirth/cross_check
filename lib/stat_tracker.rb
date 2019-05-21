@@ -15,6 +15,7 @@ class StatTracker
     CSV.foreach(@team_info_path, headers: true) do |row|
       @teams << row
     end
+    @teams.count
   end
 
 end
