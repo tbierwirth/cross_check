@@ -19,4 +19,8 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
+  def test_add_teams_and_count
+    assert_equal 33, StatTracker.from_csv
+  end
+
 end
