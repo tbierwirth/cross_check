@@ -35,6 +35,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 14882, @stat_tracker.game_team_stats.count
   end
 
+<<<<<<< HEAD
   def test_instances_of_games_class
     @stat_tracker.games.each do |game|
       assert_instance_of Game, game
@@ -53,4 +54,6 @@ class StatTrackerTest < MiniTest::Test
     end
   end
 
+=======
+>>>>>>> a76a0cb65b5c1fdfd9f0a75b0f1ba1487d30c35d
 end
