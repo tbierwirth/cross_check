@@ -1,32 +1,24 @@
 module GameStats
 
   def highest_total_score
-    total_goals = []
-    @games.each do |game|
-      total_goals << game.away_goals.to_i + game.home_goals.to_i
+    total_goals = @games.map do |game|
+      game.away_goals.to_i + game.home_goals.to_i
     end
-    total_goals.max_by do |goals|
-      goals
-    end
+    total_goals.max_by { |goals| goals }
   end
 
   def lowest_total_score
-    total_goals = []
-    @games.each do |game|
-      total_goals << game.away_goals.to_i + game.home_goals.to_i
+    total_goals = @games.map do |game|
+      game.away_goals.to_i + game.home_goals.to_i
     end
-    total_goals.min_by do |goals|
-      goals
-    end
+    total_goals.min_by { |goals| goals }
   end
 
   def biggest_blowout
-    goal_differential = []
-    @games.each do |game|
-      goal_differential << (game.away_goals.to_i - game.home_goals.to_i).abs
+    goal_differential = @games.map do |game|
+      (game.away_goals.to_i - game.home_goals.to_i).abs
     end
-    goal_differential.max_by do |goals|
-      goals
-    end
+    goal_differential.max_by { |goals| goals }
   end
+
 end
