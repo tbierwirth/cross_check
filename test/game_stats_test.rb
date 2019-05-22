@@ -4,7 +4,7 @@ require 'minitest/pride'
 
 require './lib/game'
 require './lib/stat_tracker'
-require'./modules/game_stats'
+require'./lib/modules/game_stats'
 
 require 'pry'
 
