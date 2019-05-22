@@ -1,9 +1,10 @@
-# Create a method to pull data from game.csv
-# and turn each row into a hash
-# Push that hash into a games array
 
 class Game
-  attr_reader :outcome, :away_goals, :home_goals
+  attr_reader :game_id,
+              :season,
+              :away_goals,
+              :home_goals,
+              :outcome
 
   def initialize(row)
     @game_id = row["game_id"]
@@ -22,5 +23,4 @@ class Game
     @venue_time_zone_offset = row["venue_time_zone_offset"]
     @venue_time_zone_tz = row["venue_time_zone_tz"]
   end
-
 end

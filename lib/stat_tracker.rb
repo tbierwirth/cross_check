@@ -4,6 +4,7 @@ require 'pry'
 require './lib/game'
 require './lib/game_team_stats'
 require './lib/team_info'
+require './lib/game_stats'
 
 require './lib/modules/game_stats'
 
@@ -41,6 +42,4 @@ class StatTracker
       @game_team_stats << GameTeamStats.new(row)
     end
   end
-
-
 end
