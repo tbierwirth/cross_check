@@ -52,5 +52,8 @@ class StatTrackerTest < MiniTest::Test
       assert_instance_of GameTeamStats, game_team
     end
   end
-  
+
+  def test_highest_total_score
+    assert_equal 15, @stat_tracker.highest_total_score
+  end
 end
