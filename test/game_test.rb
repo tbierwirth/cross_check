@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
 require './lib/stat_tracker'
-require './lib/game_stats'
+require './lib/modules/game_stats'
 require 'pry'
 
 class GameTest < MiniTest::Test

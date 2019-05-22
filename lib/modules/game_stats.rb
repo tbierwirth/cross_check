@@ -42,4 +42,23 @@ module GameStats
     goal_differential.max_by { |goals| goals }
   end
 
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+      games.each do |game|
+       games_by_season[game.season] += 1
+      end
+      games_by_season
+   end
+
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    games.each do |game|
+      goals_by_season[game.season] += game.away_goals.to_i + game.home_goals.to_i
+    end
+    count_of_games_by_season.each do  |season, game_count|
+      goals_by_season[season] = (goals_by_season[season] / game_count.to_f).round(2)
+    end
+    goals_by_season
+  end
+
 end
