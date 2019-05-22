@@ -5,7 +5,7 @@ require './lib/game'
 require './lib/game_team_stats'
 require './lib/team_info'
 
-require './modules/game_stats'
+require './lib/modules/game_stats'
 
 class StatTracker
   include GameStats
