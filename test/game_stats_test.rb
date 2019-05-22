@@ -28,4 +28,8 @@ class GameStatsTest < MiniTest::Test
     assert_equal 49.64, @stat_tracker.home_wins
   end
 
+  def test_percentage_away_wins
+    assert_equal 50.36, @stat_tracker.home_wins
+  end
+
 end
