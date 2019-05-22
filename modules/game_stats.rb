@@ -8,4 +8,11 @@ module GameStats
     win_percentage = ((total_wins.to_f / @games.count) * 100.00).round(2)
   end
 
+  def away_wins
+    total_wins = @games.count do |game|
+      game.outcome == ("away win REG") || game.outcome == ("away win OT")
+    end
+    win_percentage = ((total_wins.to_f / @games.count) * 100.00).round(2)
+  end
+
 end
