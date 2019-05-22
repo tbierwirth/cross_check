@@ -3,7 +3,8 @@ class Game
   attr_reader :game_id,
               :season,
               :away_goals,
-              :home_goals
+              :home_goals,
+              :outcome
 
   def initialize(row)
     @game_id = row["game_id"]

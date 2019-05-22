@@ -64,4 +64,17 @@ class StatTrackerTest < MiniTest::Test
   def test_biggest_blowout
     assert_equal 10, @stat_tracker.biggest_blowout
   end
+
+  def test_percentage_home_wins
+    assert_equal 49.64, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_away_wins
+    assert_equal 40.22, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_average_goals_per_game
+    assert_equal 5.54, @stat_tracker.average_goals_per_game
+  end
+
 end
