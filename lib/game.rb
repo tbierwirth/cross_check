@@ -3,7 +3,7 @@
 # Push that hash into a games array
 
 class Game
-  attr_reader :outcome
+  attr_reader :outcome, :away_goals, :home_goals
 
   def initialize(row)
     @game_id = row["game_id"]
