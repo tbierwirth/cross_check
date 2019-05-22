@@ -4,8 +4,10 @@ require 'pry'
 require './lib/game'
 require './lib/game_team_stats'
 require './lib/team_info'
+require './lib/game_stats'
 
 class StatTracker
+  include GameStats
   attr_reader :games, :teams, :game_team_stats
 
   def initialize(locations)
@@ -38,6 +40,4 @@ class StatTracker
       @game_team_stats << GameTeamStats.new(row)
     end
   end
-
-
 end
