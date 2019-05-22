@@ -1,5 +1,5 @@
 class Game
-  attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :outcome, :home_rink_side_start, :venue, :venue_link, :venue_time_zone_id, :venue_time_zone_offset, :venue_time_zone_tz
+  attr_reader :season, :away_goals, :home_goals
 
   def initialize(row)
     @game_id = row["game_id"]
@@ -17,5 +17,5 @@ class Game
     @venue_time_zone_id = row["venue_time_zone_id"]
     @venue_time_zone_offset = row["venue_time_zone_offset"]
     @venue_time_zone_tz = row["venue_time_zone_tz"]
-  end 
+  end
 end
