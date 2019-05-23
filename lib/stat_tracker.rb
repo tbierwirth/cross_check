@@ -5,9 +5,11 @@ require './lib/game'
 require './lib/game_team_stats'
 require './lib/team_info'
 require './lib/modules/game_stats'
+require './lib/modules/leauge_stats'
 
 class StatTracker
   include GameStats
+  include LeagueStats
   attr_reader :games, :teams, :game_team_stats
 
   def initialize(locations)
