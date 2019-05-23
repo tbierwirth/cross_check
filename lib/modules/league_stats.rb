@@ -80,6 +80,16 @@ module LeagueStats
     best_fans.team_name
   end
 
+  def worst_fans
+    the_worst = []
+    home_win_pct_by_team.each do |team, win_pct|
+        if away_win_pct_by_team[team] > win_pct
+          the_worst << team
+        end
+    end
+    the_worst
+  end
+
   def home_wins_by_team
     home_wins_by_team = Hash.new(0)
     @game_team_stats.each do |game|
