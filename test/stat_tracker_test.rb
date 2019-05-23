@@ -97,4 +97,8 @@ class StatTrackerTest < MiniTest::Test
   def test_lowest_scoring_visitor
     assert_equal "Sabres", @stat_tracker.lowest_scoring_visitor
   end
+
+  def test_winningest_team
+    assert_equal "Golden Knights", @stat_tracker.winningest_team
+  end
 end
