@@ -7,6 +7,7 @@ require './lib/game_team_stats'
 require './lib/team_info'
 require './lib/stat_tracker'
 require './lib/modules/game_stats'
+require './lib/modules/league_stats'
 
 require 'pry'
 
@@ -79,11 +80,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 49.64, @stat_tracker.percentage_home_wins
+    assert_equal 0.55, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_away_wins
-    assert_equal 40.22, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.45, @stat_tracker.percentage_visitor_wins
   end
 
   def test_average_goals_per_game
@@ -92,6 +93,10 @@ class StatTrackerTest < MiniTest::Test
 
   def test_best_offense_league_stats
     assert_equal "Golden Knights", @stat_tracker.best_offense
+  end
+  
+  def test_worst_offense_league_stats
+    assert_equal "Sabres", @stat_tracker.worst_offense
   end
 
 end
