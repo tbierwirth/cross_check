@@ -2,7 +2,8 @@ class GameTeamStats
   attr_reader :team_id,
               :hoa,
               :game_id,
-              :goals 
+              :goals,
+              :won  
 
   def initialize(row)
     @game_id = row["game_id"]
