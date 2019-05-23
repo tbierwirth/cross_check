@@ -89,4 +89,8 @@ class StatTrackerTest < MiniTest::Test
   def test_average_goals_per_game
     assert_equal 5.54, @stat_tracker.average_goals_per_game
   end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Sabres", @stat_tracker.lowest_scoring_home_team
+  end
 end
