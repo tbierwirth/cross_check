@@ -94,9 +94,17 @@ class StatTrackerTest < MiniTest::Test
   def test_best_offense_league_stats
     assert_equal "Golden Knights", @stat_tracker.best_offense
   end
-  
+
   def test_worst_offense_league_stats
     assert_equal "Sabres", @stat_tracker.worst_offense
+  end
+
+  def test_best_defense_league_stats
+    assert_equal "Kings", @stat_tracker.best_defense
+  end
+
+  def test_worst_defense_league_stats
+    assert_equal "Coyotes", @stat_tracker.worst_defense
   end
 
 end
