@@ -61,15 +61,30 @@ module GameStats
     goals_by_season
   end
 
-
-    # team_total_visiting_games = Hash.new (0)
-    # team_averages = Hash.new(0)
-    #
-    # @game_team_stats.each do |game|
-    #   team_averages[game.team_id] += (game.goals.to_i / team_total_games[game.team_id]) += 1
-    # end
   def highest_scoring_visitor
+    total_away_goals_by_team_id = Hash.new(0)
+      @games.each do |game|
+        total_away_goals_by_team_id[game.away_team_id] += game.away_goals
+    end
 
+    total_away_games_by_team_id = Hash.new(0)
+      @games.each do |game|
+        total_away_games_by_team_id[game.away_team_id] += 1
+    end
+
+    average = total_away_goals_by_team_id.merge(total_away_games_by_team_id)  do |away_team, away_goals, away_games|
+      away_goals / away_games.to_f
+    end
+
+    highest_average = average.max_by{|team_id, goals| goals}
+
+    team = @teams.find do |team|
+      highest_average.first == team.team_id
+    end
+    team.team_name
+  end
+
+  def lowest_scoring_visitor
     total_away_goals_by_team_id = Hash.new(0)
       @games.each do |game|
         total_away_goals_by_team_id[game.away_team_id] += game.away_goals
@@ -84,29 +99,12 @@ module GameStats
       away_goals / away_games.to_f
     end
 
-    highest_average = average.max_by{|team_id, goals| goals}
+    lowest_average = average.min_by{|team_id, goals| goals}
 
     team = @teams.find do |team|
-      highest_average.first == team.team_id
+      lowest_average.first == team.team_id
     end
     team.team_name
-
-
-
-
-#call same as above for lowest_average
-
   end
-
-
-
-
-
-
-
-
-#Name of the team with the highest average score per game across all seasons when they are away.
-
-
 
 end
