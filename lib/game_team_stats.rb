@@ -1,9 +1,13 @@
 class GameTeamStats
+  attr_reader :team_id,
+              :hoa,
+              :game_id,
+              :goals 
 
   def initialize(row)
     @game_id = row["game_id"]
     @team_id = row["team_id"]
-    @HoA = row["HoA"]
+    @hoa = row["HoA"]
     @won = row["won"]
     @settled_in = row["settled_in"]
     @head_coach = row["head_coach"]
@@ -11,9 +15,9 @@ class GameTeamStats
     @shots = row["shots"]
     @hits = row["hits"]
     @pim = row["pim"]
-    @powerPlayOpportunities = row["powerPlayOpportunities"]
-    @powerPlayGoals = row["powerPlayGoals"]
-    @faceOffWinPercentage = row["faceOffWinPercentage"]
+    @power_play_opportunities = row["powerPlayOpportunities"]
+    @power_play_goals = row["powerPlayGoals"]
+    @face_off_win_percentage = row["faceOffWinPercentage"]
     @giveaways = row["giveaways"]
     @takeaways = row["takeaways"]
   end
