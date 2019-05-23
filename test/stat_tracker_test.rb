@@ -89,4 +89,9 @@ class StatTrackerTest < MiniTest::Test
   def test_average_goals_per_game
     assert_equal 5.54, @stat_tracker.average_goals_per_game
   end
+
+  def test_best_offense_league_stats
+    assert_equal "Golden Knights", @stat_tracker.best_offense
+  end
+
 end
