@@ -105,4 +105,8 @@ class StatTrackerTest < MiniTest::Test
   def test_best_fans
     assert_equal "Coyotes", @stat_tracker.best_fans
   end
+
+  def test_worst_fans
+    assert_equal [], @stat_tracker.worst_fans
+  end
 end
