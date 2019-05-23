@@ -2,6 +2,8 @@
 class Game
   attr_reader :game_id,
               :season,
+              :away_team_id,
+              :home_team_id,
               :away_goals,
               :home_goals,
               :outcome
