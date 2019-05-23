@@ -97,8 +97,18 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_can_find_lowest_scoring_visitor
-
     expected = "Sabres"
     assert_equal expected, @stat_tracker.lowest_scoring_visitor
   end
+
+  def test_can_find_lowest_scoring_home_team
+    expected = "Sabres"
+    assert_equal expected, @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_can_find_highest_scoring_home_team
+    expected = "Golden Knights"
+    assert_equal expected, @stat_tracker.highest_scoring_home_team
+  end
+
 end
