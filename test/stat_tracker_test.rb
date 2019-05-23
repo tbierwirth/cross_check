@@ -107,4 +107,8 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Coyotes", @stat_tracker.worst_defense
   end
 
+  def test_count_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
 end
