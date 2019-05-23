@@ -87,4 +87,12 @@ module LeagueStats
     team.team_name
   end
 
+  def count_of_teams
+    teams = []
+    @teams.count do |team|
+      teams << team.team_name
+    end
+    teams.uniq.count
+  end
+
 end
