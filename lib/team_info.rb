@@ -1,5 +1,6 @@
 class TeamInfo
-  attr_reader :team_id, :team_name
+  attr_reader :team_name,
+              :team_id
 
   def initialize(row)
     @team_id = row["team_id"]
