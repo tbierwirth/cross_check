@@ -20,8 +20,8 @@ module LeagueStats
   def total_goals_made
     total_goals_made_per_team = Hash.new(0)
     @games.each do |game|
-      total_goals_per_team[game.away_team_id] += game.away_goals.to_i
-      total_goals_per_team[game.home_team_id] += game.home_goals.to_i
+      total_goals_made_per_team[game.away_team_id] += game.away_goals.to_i
+      total_goals_made_per_team[game.home_team_id] += game.home_goals.to_i
     end
     total_goals_made_per_team
   end
