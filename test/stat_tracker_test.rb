@@ -56,13 +56,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_count_of_games_by_season
-
     expected = {"20122013" => 806,"20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355}
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_average_number_of_goals_in_a_game_by_season
-
     expected = {"20122013" => 5.40,"20162017"=> 5.51, "20142015"=> 5.43, "20152016"=> 5.41, "20132014"=> 5.50, "20172018"=> 5.94}
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
@@ -109,6 +107,26 @@ class StatTrackerTest < MiniTest::Test
 
   def test_count_teams
     assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_can_find_highest_scoring_visitor
+    expected = "Capitals"
+    assert_equal expected, @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_can_find_lowest_scoring_visitor
+    expected = "Sabres"
+    assert_equal expected, @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_can_find_lowest_scoring_home_team
+    expected = "Sabres"
+    assert_equal expected, @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_can_find_highest_scoring_home_team
+    expected = "Golden Knights"
+    assert_equal expected, @stat_tracker.highest_scoring_home_team
   end
 
 end
