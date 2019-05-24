@@ -1,11 +1,11 @@
 require 'csv'
 require 'pry'
 
-require './lib/game'
-require './lib/game_team_stats'
-require './lib/team_info'
+require_relative './game'
+require_relative './game_team_stats'
+require_relative './team_info'
 require './lib/modules/game_stats'
-require './lib/modules/leauge_stats'
+require './lib/modules/league_stats'
 
 class StatTracker
   include GameStats
@@ -42,4 +42,5 @@ class StatTracker
       @game_team_stats << GameTeamStats.new(row)
     end
   end
+
 end
