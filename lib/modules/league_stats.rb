@@ -17,13 +17,26 @@ module LeagueStats
     total_games_per_team
   end
 
-  def best_offense
-    total_goals_per_team = Hash.new(0)
+  def total_goals_made
+    total_goals_made_per_team = Hash.new(0)
     @games.each do |game|
       total_goals_per_team[game.away_team_id] += game.away_goals.to_i
       total_goals_per_team[game.home_team_id] += game.home_goals.to_i
     end
-    average = total_goals_per_team.merge(total_games_played) do |team_id, total_goals, games|
+    total_goals_made_per_team
+  end
+
+  def total_goals_allowed
+    total_goals_allowed_per_team = Hash.new(0)
+    @games.each do |game|
+      total_goals_allowed_per_team[game.away_team_id] += game.home_goals.to_i
+      total_goals_allowed_per_team[game.home_team_id] += game.away_goals.to_i
+    end
+    total_goals_allowed_per_team
+  end
+
+  def best_offense
+    average = total_goals_made.merge(total_games_played) do |team_id, total_goals, games|
       total_goals / games.to_f
     end
     best_offense = average.max_by{ |team_id, goals| goals}
@@ -31,12 +44,7 @@ module LeagueStats
   end
 
   def worst_offense
-    total_goals_per_team = Hash.new(0)
-    @games.each do |game|
-      total_goals_per_team[game.away_team_id] += game.away_goals.to_i
-      total_goals_per_team[game.home_team_id] += game.home_goals.to_i
-    end
-    average = total_goals_per_team.merge(total_games_played) do |team_id, total_goals, games|
+    average = total_goals_made.merge(total_games_played) do |team_id, total_goals, games|
       total_goals / games.to_f
     end
     worst_offense = average.min_by{ |team_id, goals| goals}
@@ -44,11 +52,6 @@ module LeagueStats
   end
 
   def best_defense
-    total_goals_allowed = Hash.new(0)
-    @games.each do |game|
-      total_goals_allowed[game.away_team_id] += game.home_goals.to_i
-      total_goals_allowed[game.home_team_id] += game.away_goals.to_i
-    end
     average = total_goals_allowed.merge(total_games_played) do |team_id, total_goals, games|
       total_goals / games.to_f
     end
@@ -57,11 +60,6 @@ module LeagueStats
   end
 
   def worst_defense
-    total_goals_allowed = Hash.new(0)
-    @games.each do |game|
-      total_goals_allowed[game.away_team_id] += game.home_goals.to_i
-      total_goals_allowed[game.home_team_id] += game.away_goals.to_i
-    end
     average = total_goals_allowed.merge(total_games_played) do |team_id, total_goals, games|
       total_goals / games.to_f
     end
