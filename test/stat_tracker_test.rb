@@ -7,6 +7,7 @@ require './lib/game_team_stats'
 require './lib/team_info'
 require './lib/stat_tracker'
 require './lib/modules/game_stats'
+require './lib/modules/league_stats'
 
 require 'pry'
 
@@ -55,13 +56,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_count_of_games_by_season
-
     expected = {"20122013" => 806,"20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355}
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_average_number_of_goals_in_a_game_by_season
-
     expected = {"20122013" => 5.40,"20162017"=> 5.51, "20142015"=> 5.43, "20152016"=> 5.41, "20132014"=> 5.50, "20172018"=> 5.94}
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
@@ -79,23 +78,15 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 49.64, @stat_tracker.percentage_home_wins
+    assert_equal 0.55, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_away_wins
-    assert_equal 40.22, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.45, @stat_tracker.percentage_visitor_wins
   end
 
   def test_average_goals_per_game
     assert_equal 5.54, @stat_tracker.average_goals_per_game
-  end
-
-  def test_lowest_scoring_home_team
-    assert_equal "Sabres", @stat_tracker.lowest_scoring_home_team
-  end
-
-  def test_lowest_scoring_visitor
-    assert_equal "Sabres", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_winningest_team
@@ -109,4 +100,45 @@ class StatTrackerTest < MiniTest::Test
   def test_worst_fans
     assert_equal [], @stat_tracker.worst_fans
   end
+
+  def test_best_offense_league_stats
+    assert_equal "Golden Knights", @stat_tracker.best_offense
+  end
+
+  def test_worst_offense_league_stats
+    assert_equal "Sabres", @stat_tracker.worst_offense
+  end
+
+  def test_best_defense_league_stats
+    assert_equal "Kings", @stat_tracker.best_defense
+  end
+
+  def test_worst_defense_league_stats
+    assert_equal "Coyotes", @stat_tracker.worst_defense
+  end
+
+  def test_count_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_can_find_highest_scoring_visitor
+    expected = "Capitals"
+    assert_equal expected, @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_can_find_lowest_scoring_visitor
+    expected = "Sabres"
+    assert_equal expected, @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_can_find_lowest_scoring_home_team
+    expected = "Sabres"
+    assert_equal expected, @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_can_find_highest_scoring_home_team
+    expected = "Golden Knights"
+    assert_equal expected, @stat_tracker.highest_scoring_home_team
+  end
+
 end

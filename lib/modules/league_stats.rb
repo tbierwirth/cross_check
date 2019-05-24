@@ -1,48 +1,5 @@
+
 module LeagueStats
-
-  def lowest_scoring_home_team
-    home_goals_by_team = Hash.new(0)
-    home_games_by_team = Hash.new(0)
-
-    @game_team_stats.each do |game|
-      if game.hoa == "home"
-        home_goals_by_team[game.team_id] += game.goals.to_i
-        home_games_by_team[game.team_id] += 1
-      end
-    end
-    home_games_by_team.each do |team, games|
-      home_goals_by_team[team] = (home_goals_by_team[team] / games.to_f).round(2)
-    end
-    lowest_scoring_team = home_goals_by_team.min_by {|team, avg_goals| avg_goals}
-    lowest_home_team = @teams.find do |team|
-      if team.team_id == lowest_scoring_team[0]
-        team.team_name
-      end
-    end
-    lowest_home_team.team_name
-  end
-
-  def lowest_scoring_visitor
-    visitor_goals_by_team = Hash.new(0)
-    visitor_games_by_team = Hash.new(0)
-
-    @game_team_stats.each do |game|
-      if game.hoa == "away"
-        visitor_goals_by_team[game.team_id] += game.goals.to_i
-        visitor_games_by_team[game.team_id] += 1
-      end
-    end
-    visitor_games_by_team.each do |team, games|
-      visitor_goals_by_team[team] = (visitor_goals_by_team[team] / games.to_f).round(2)
-    end
-    lowest_scoring_team = visitor_goals_by_team.min_by {|team, avg_goals| avg_goals}
-    lowest_visitor_team = @teams.find do |team|
-      if team.team_id == lowest_scoring_team[0]
-        team.team_name
-      end
-    end
-    lowest_visitor_team.team_name
-  end
 
   def winningest_team
     total_wins_by_team = Hash.new(0)
@@ -110,7 +67,7 @@ module LeagueStats
     away_wins_by_team
   end
 
-  def games_by_team
+  def games_by_team_game_team_stats
     games_by_team = Hash.new(0)
     @game_team_stats.each do |game|
       games_by_team[game.team_id] += 1
@@ -152,5 +109,79 @@ module LeagueStats
       away_win_pct[team] = (away_win_pct[team] / games.to_f)
     end
     away_win_pct
+  end
+
+  def team_name(id)
+    team = @teams.find do |team|
+      id[0] == team.team_id
+    end
+    team.team_name
+  end
+
+  def total_games_played_game_stats
+    total_games_per_team = Hash.new(0)
+    @games.each do |game|
+      total_games_per_team[game.away_team_id] += 1
+      total_games_per_team[game.home_team_id] += 1
+    end
+    total_games_per_team
+  end
+
+  def total_goals_made
+    total_goals_made_per_team = Hash.new(0)
+    @games.each do |game|
+      total_goals_made_per_team[game.away_team_id] += game.away_goals.to_i
+      total_goals_made_per_team[game.home_team_id] += game.home_goals.to_i
+    end
+    total_goals_made_per_team
+  end
+
+  def total_goals_allowed
+    total_goals_allowed_per_team = Hash.new(0)
+    @games.each do |game|
+      total_goals_allowed_per_team[game.away_team_id] += game.home_goals.to_i
+      total_goals_allowed_per_team[game.home_team_id] += game.away_goals.to_i
+    end
+    total_goals_allowed_per_team
+  end
+
+  def best_offense
+    average = total_goals_made.merge(total_games_played) do |team_id, total_goals, games|
+      total_goals / games.to_f
+    end
+    best_offense = average.max_by{ |team_id, goals| goals}
+    team_name(best_offense)
+  end
+
+  def worst_offense
+    average = total_goals_made.merge(total_games_played) do |team_id, total_goals, games|
+      total_goals / games.to_f
+    end
+    worst_offense = average.min_by{ |team_id, goals| goals}
+    team_name(worst_offense)
+  end
+
+  def best_defense
+    average = total_goals_allowed.merge(total_games_played) do |team_id, total_goals, games|
+      total_goals / games.to_f
+    end
+    best_defense = average.min_by{ |team_id, goals| goals}
+    team_name(best_defense)
+  end
+
+  def worst_defense
+    average = total_goals_allowed.merge(total_games_played) do |team_id, total_goals, games|
+      total_goals / games.to_f
+    end
+    worst_defense = average.max_by{ |team_id, goals| goals}
+    team_name(worst_defense)
+  end
+
+  def count_of_teams
+    teams = []
+    @teams.count do |team|
+      teams << team.team_name
+    end
+    teams.uniq.count
   end
 end

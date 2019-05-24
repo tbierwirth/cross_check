@@ -1,15 +1,15 @@
 require 'csv'
 require 'pry'
 
-require './lib/game'
-require './lib/game_team_stats'
-require './lib/team_info'
+require_relative './game'
+require_relative './game_team_stats'
+require_relative './team_info'
 require './lib/modules/game_stats'
 require './lib/modules/league_stats'
 
 class StatTracker
   include GameStats
-  include LeagueStats 
+  include LeagueStats
   attr_reader :games, :teams, :game_team_stats
 
   def initialize(locations)
@@ -42,4 +42,5 @@ class StatTracker
       @game_team_stats << GameTeamStats.new(row)
     end
   end
+
 end
