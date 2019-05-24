@@ -89,4 +89,26 @@ class StatTrackerTest < MiniTest::Test
   def test_average_goals_per_game
     assert_equal 5.54, @stat_tracker.average_goals_per_game
   end
+
+  def test_can_find_highest_scoring_visitor
+
+    expected = "Capitals"
+    assert_equal expected, @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_can_find_lowest_scoring_visitor
+    expected = "Sabres"
+    assert_equal expected, @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_can_find_lowest_scoring_home_team
+    expected = "Sabres"
+    assert_equal expected, @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_can_find_highest_scoring_home_team
+    expected = "Golden Knights"
+    assert_equal expected, @stat_tracker.highest_scoring_home_team
+  end
+
 end
