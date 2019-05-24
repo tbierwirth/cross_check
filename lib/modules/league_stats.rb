@@ -1,6 +1,13 @@
 require "pry"
 module LeagueStats
 
+  def team_name(id)
+    team = @teams.find do |team|
+      id[0] == team.team_id
+    end
+    team.team_name
+  end
+
   def best_offense
     total_goals_per_team = Hash.new(0)
     total_games_per_team = Hash.new(0)
@@ -15,11 +22,8 @@ module LeagueStats
     average = total_goals_per_team.merge(total_games_per_team) do |team_id, total_goals, games|
       total_goals / games.to_f
     end
-    highest_average = average.max_by{ |team_id, goals| goals}
-    team = @teams.find do |team|
-      highest_average[0] == team.team_id
-    end
-    team.team_name
+    best_offense = average.max_by{ |team_id, goals| goals}
+    team_name(best_offense)
   end
 
   def worst_offense
@@ -36,11 +40,8 @@ module LeagueStats
     average = total_goals_per_team.merge(total_games_per_team) do |team_id, total_goals, games|
       total_goals / games.to_f
     end
-    highest_average = average.min_by{ |team_id, goals| goals}
-    team = @teams.find do |team|
-      highest_average[0] == team.team_id
-    end
-    team.team_name
+    worst_offense = average.min_by{ |team_id, goals| goals}
+    team_name(worst_offense)
   end
 
   def best_defense
@@ -58,11 +59,8 @@ module LeagueStats
     average = total_goals_allowed.merge(total_games_played) do |team_id, total_goals, games|
       total_goals / games.to_f
     end
-    highest_average = average.min_by{ |team_id, goals| goals}
-    team = @teams.find do |team|
-      highest_average[0] == team.team_id
-    end
-    team.team_name
+    best_defense = average.min_by{ |team_id, goals| goals}
+    team_name(best_defense)
   end
 
   def worst_defense
@@ -80,11 +78,8 @@ module LeagueStats
     average = total_goals_allowed.merge(total_games_played) do |team_id, total_goals, games|
       total_goals / games.to_f
     end
-    highest_average = average.max_by{ |team_id, goals| goals}
-    team = @teams.find do |team|
-      highest_average[0] == team.team_id
-    end
-    team.team_name
+    worst_defense = average.max_by{ |team_id, goals| goals}
+    team_name(worst_defense)
   end
 
   def count_of_teams
