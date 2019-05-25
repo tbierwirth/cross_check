@@ -8,6 +8,7 @@ require './lib/team_info'
 require './lib/stat_tracker'
 require './lib/modules/game_stats'
 require './lib/modules/league_stats'
+require './lib/modules/team_stats.rb'
 
 require 'pry'
 
@@ -139,6 +140,19 @@ class StatTrackerTest < MiniTest::Test
   def test_can_find_highest_scoring_home_team
     expected = "Golden Knights"
     assert_equal expected, @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_return_team_info_by_team_id
+    expected = {
+      "team_id" => "4",
+      "franchise_id" => "16",
+      "short_name" => "Philadelphia",
+      "team_name" => "Flyers",
+      "abbreviation" => "PHI",
+      "link" => "/api/v1/teams/4"
+    }
+
+    assert_equal expected, @stat_tracker.team_info("4")
   end
 
 end
