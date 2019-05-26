@@ -25,14 +25,6 @@ module TeamStats
     goals.min
   end
 
-  # def transform_keys(hash)
-  # result = {}
-  # hash.each_pair do |key, value|
-  #   result[yield(key)] = value
-  # end
-  # result
-  # end
-
   def head_to_head(id)
     wins = Hash.new(0)
     games = Hash.new(0)
