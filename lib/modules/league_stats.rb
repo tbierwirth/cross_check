@@ -118,7 +118,7 @@ module LeagueStats
     team.team_name
   end
 
-  def total_games_played_game_stats
+  def total_games_played
     total_games_per_team = Hash.new(0)
     @games.each do |game|
       total_games_per_team[game.away_team_id] += 1
