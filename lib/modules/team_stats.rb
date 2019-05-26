@@ -59,4 +59,16 @@ module TeamStats
     big_blowout.max_by {|game, goal_diff| goal_diff}.last
   end
 
+  def worst_loss(team_id)
+    bad_loss = Hash.new(0)
+    @games.each do |game|
+      if game.home_team_id == team_id && game.outcome.include?("away win")
+        bad_loss[game.game_id] += (game.away_goals.to_i - game.home_goals.to_i)
+      elsif game.away_team_id == team_id && game.outcome.include?("home win")
+        bad_loss[game.game_id] += (game.home_goals.to_i - game.away_goals.to_i)
+      end
+    end
+    bad_loss.max_by {|game, goal_diff| goal_diff}.last
+  end
+
 end
