@@ -46,12 +46,12 @@ module TeamStats
     end
     result = {}
     percentages.each_pair do |team_id, percentage|
-      result[team_name(team_id)] = percentage
+      result[name(team_id)] = percentage
     end
     result
   end
 
-  def team_name(id)
+  def name(id)
     team = @teams.find do |team|
       id == team.team_id
     end
