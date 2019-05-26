@@ -22,29 +22,61 @@ module TeamStats
   end
 
   def count_of_team_games_by_season(team_id)
-    games_by_season = Hash.new(0)
-    games.each do |game|
-      if game.away_team_id == team_id || game.home_team_id == team_id
-        games_by_season[game.season] += 1
-      end
+    games_by_season = reg_season_games(team_id).merge(post_season_games(team_id)) do |games, reg, post|
+      post + reg
     end
     games_by_season
   end
 
-  def wins_by_season(team_id)
-    wins_by_season = Hash.new(0)
-    @games.count do |game|
-      if game.away_team_id == team_id
-        if game.outcome.include?("away win")
-          wins_by_season[game.season] += 1
-        end
-      elsif game.home_team_id == team_id
-        if game.outcome.include?("home win")
-          wins_by_season[game.season] += 1
-        end
+  def reg_season_games(team_id)
+    reg_games_by_season = Hash.new(0)
+    games.each do |game|
+      if (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == "R"
+        reg_games_by_season[game.season] += 1
       end
     end
+    reg_games_by_season
+  end
+
+  def post_season_games(team_id)
+    post_games_by_season = Hash.new(0)
+    games.each do |game|
+      if (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == "P"
+        post_games_by_season[game.season] += 1
+      end
+    end
+    post_games_by_season
+  end
+
+  def wins_by_season(team_id)
+    wins_by_season = reg_wins_by_season(team_id).merge(post_wins_by_season(team_id)) do |wins, reg, post|
+      post + reg
+    end
     wins_by_season
+  end
+
+  def reg_wins_by_season(team_id)
+    reg_wins_by_season = Hash.new(0)
+    @games.each do |game|
+      if game.away_team_id == team_id && game.outcome.include?("away win") && game.type == "R"
+        reg_wins_by_season[game.season] += 1
+      elsif game.home_team_id == team_id && game.outcome.include?("home win") && game.type == "R"
+        reg_wins_by_season[game.season] += 1
+      end
+    end
+    reg_wins_by_season
+  end
+
+  def post_wins_by_season(team_id)
+    post_wins_by_season = Hash.new(0)
+    @games.each do |game|
+      if game.away_team_id == team_id && game.outcome.include?("away win") && game.type == "P"
+        post_wins_by_season[game.season] += 1
+      elsif game.home_team_id == team_id && game.outcome.include?("home win") && game.type == "P"
+        post_wins_by_season[game.season] += 1
+      end
+    end
+    post_wins_by_season
   end
 
   def biggest_team_blowout(team_id)
@@ -71,4 +103,59 @@ module TeamStats
     bad_loss.max_by {|game, goal_diff| goal_diff}.last
   end
 
+  def seasonal_summary(team_id)
+    
+  end
+
+  def reg_season_win_percentage(team_id)
+    reg_season_win_pct = reg_wins_by_season(team_id).merge(reg_season_games(team_id)) do |team, wins, games|
+      (wins / games.to_f).round(2)
+    end
+    reg_season_win_pct
+  end
+
+  def post_season_win_percentage(team_id)
+    post_season_win_pct = post_wins_by_season(team_id).merge(post_season_games(team_id)) do |team, wins, games|
+      (wins / games.to_f).round(2)
+    end
+    post_season_win_pct
+  end
+
+  def reg_season_goals(team_id)
+    reg_season_goals = Hash.new(0)
+    @games.each do |game|
+      if game.home_team_id == team_id && game.type == "R"
+        reg_season_goals[game.season] += game.home_goals.to_i
+      elsif game.away_team_id == team_id && game.type == "R"
+        reg_season_goals[game.season] += game.away_goals.to_i
+      end
+    end
+    reg_season_goals
+  end
+
+  def post_season_goals(team_id)
+    post_season_goals = Hash.new(0)
+    @games.each do |game|
+      if game.home_team_id == team_id && game.type == "P"
+        post_season_goals[game.season] += game.home_goals.to_i
+      elsif game.away_team_id == team_id && game.type == "P"
+        post_season_goals[game.season] += game.away_goals.to_i
+      end
+    end
+    post_season_goals
+  end
+
+  def reg_season_goals_average(team_id)
+    avg_reg_season_goals = reg_season_goals(team_id).merge(reg_season_games(team_id)) do |season, goals, games|
+      (goals / games.to_f).round(2)
+    end
+    avg_reg_season_goals
+  end
+
+  def post_season_goals_average(team_id)
+    avg_post_season_goals = post_season_goals(team_id).merge(post_season_games(team_id)) do |season, goals, games|
+      (goals / games.to_f).round(2)
+    end
+    avg_post_season_goals
+  end
 end
