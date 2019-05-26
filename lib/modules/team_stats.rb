@@ -20,7 +20,7 @@ module TeamStats
     end
     win_pct_season
   end
-  
+
   def count_of_team_games_by_season(team_id)
     games_by_season = Hash.new(0)
     games.each do |game|
@@ -45,6 +45,18 @@ module TeamStats
       end
     end
     wins_by_season
+  end
+
+  def biggest_team_blowout(team_id)
+    big_blowout = Hash.new(0)
+    @games.each do |game|
+      if game.home_team_id == team_id && game.outcome.include?("home win")
+        big_blowout[game.game_id] += (game.home_goals.to_i - game.away_goals.to_i)
+      elsif game.away_team_id == team_id && game.outcome.include?("away win")
+        big_blowout[game.game_id] += (game.away_goals.to_i - game.home_goals.to_i)
+      end
+    end
+    big_blowout.max_by {|game, goal_diff| goal_diff}.last
   end
 
 end
