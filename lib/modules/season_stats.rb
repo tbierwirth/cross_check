@@ -75,4 +75,17 @@ module SeasonStats
     (teams.max_by{|name, hits| hits})[0]
   end
 
+  def fewest_hits(season_id)
+    game_ids = get_game_ids(season_id)
+    teams = Hash.new(0)
+    @game_team_stats.each do |game|
+      game_ids.each do |id|
+        if game.game_id == id
+          teams[name(game.team_id)] += game.hits.to_i
+        end
+      end
+    end
+    (teams.min_by{|name, hits| hits})[0]
+  end
+
 end
