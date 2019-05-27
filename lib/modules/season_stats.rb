@@ -62,4 +62,17 @@ module SeasonStats
     (power_play_goals / goals.to_f).round(2)
   end
 
+  def most_hits(season_id)
+    game_ids = get_game_ids(season_id)
+    teams = Hash.new(0)
+    @game_team_stats.each do |game|
+      game_ids.each do |id|
+        if game.game_id == id
+          teams[name(game.team_id)] += game.hits.to_i
+        end
+      end
+    end
+    (teams.max_by{|name, hits| hits})[0]
+  end
+
 end
