@@ -322,4 +322,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Coyotes", @stat_tracker.least_accurate_team("20142015")
   end
 
+  def test_power_play_goal_percentage
+    assert_equal 0.22, @stat_tracker.power_play_goal_percentage("20132014")
+    assert_equal 0.21, @stat_tracker.power_play_goal_percentage("20142015")
+  end
+
 end
