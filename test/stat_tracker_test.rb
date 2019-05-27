@@ -142,6 +142,29 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.highest_scoring_home_team
   end
 
+  def test_most_goals_scored_by_team
+    assert_equal 9, @stat_tracker.most_goals_scored("18")
+  end
+
+  def test_fewest_goals_scored_by_team
+    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
+  end
+
+  def test_head_to_head_by_team
+    expected = {"Blues" => 0.47, "Jets" => 0.55, "Avalanche" => 0.63,
+      "Flames" => 0.44, "Red Wings" => 0.29, "Blue Jackets" => 0.6,
+      "Stars" => 0.52, "Blackhawks" => 0.42, "Wild" => 0.44,
+      "Devils" => 0.5, "Canadiens" => 0.6, "Canucks" => 0.5,
+      "Rangers" => 0.4, "Lightning" => 0.7, "Capitals" => 0.7,
+      "Sharks" => 0.6, "Oilers" => 0.78, "Ducks" => 0.48,
+      "Penguins" => 0.31, "Islanders" => 0.4, "Kings" => 0.61,
+      "Sabres" => 0.7, "Coyotes" => 0.67, "Bruins" => 0.5,
+      "Panthers" => 0.5, "Maple Leafs" => 0.4, "Senators" => 0.7,
+      "Hurricanes" => 0.3, "Golden Knights" => 0.33,"Flyers" => 0.5
+      }
+    assert_equal expected, @stat_tracker.head_to_head("18")
+  end
+
   def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
@@ -287,4 +310,5 @@ class StatTrackerTest < MiniTest::Test
   def test_can_calculate_average_win_percentage
     assert_equal 0.52, @stat_tracker.average_win_percentage("18")
   end
+
 end
