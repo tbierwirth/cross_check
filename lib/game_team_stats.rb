@@ -4,7 +4,8 @@ class GameTeamStats
               :game_id,
               :goals,
               :won,
-              :shots
+              :shots,
+              :power_play_goals
 
   def initialize(row)
     @game_id = row["game_id"]
