@@ -11,7 +11,7 @@ require './lib/modules/team_stats'
 class StatTracker
   include GameStats
   include LeagueStats
-  include TeamStats 
+  include TeamStats
   attr_reader :games, :teams, :game_team_stats
 
   def initialize(locations)
