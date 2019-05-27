@@ -158,4 +158,10 @@ class StatTrackerTest < MiniTest::Test
     #favorite_opponent"
     assert_equal "Oilers", @stat_tracker.favorite_opponent("18")
   end
+
+  def test_for_highest_win_percentage_against_given_team
+    #rival
+    assert_equal "Red Wings", @stat_tracker.rival("18")
+  end
+
 end
