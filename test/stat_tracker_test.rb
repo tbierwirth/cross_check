@@ -8,6 +8,7 @@ require './lib/team_info'
 require './lib/stat_tracker'
 require './lib/modules/game_stats'
 require './lib/modules/league_stats'
+require './lib/modules/team_stats.rb'
 
 require 'pry'
 
@@ -141,4 +142,30 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.highest_scoring_home_team
   end
 
+  def test_it_can_return_team_info_by_team_id
+    expected = {
+      "team_id" => "4",
+      "franchise_id" => "16",
+      "short_name" => "Philadelphia",
+      "team_name" => "Flyers",
+      "abbreviation" => "PHI",
+      "link" => "/api/v1/teams/4"
+    }
+    assert_equal expected, @stat_tracker.team_info("4")
+  end
+
+  def test_for_lowest_win_percentage_against_given_team
+    #favorite_opponent"
+    assert_equal "Oilers", @stat_tracker.favorite_opponent("18")
+  end
+
+  def test_for_highest_win_percentage_against_given_team
+    #rival
+    assert_equal "Red Wings", @stat_tracker.rival("18")
+  end
+
+  def test_can_calculate_average_win_percentage
+
+    assert_equal 0.52, @stat_tracker.average_win_percentage("18")
+  end
 end
