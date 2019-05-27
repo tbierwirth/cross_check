@@ -7,11 +7,13 @@ require_relative './team_info'
 require_relative './modules/game_stats'
 require_relative './modules/league_stats'
 require_relative './modules/team_stats'
+require_relative './modules/season_stats'
 
 class StatTracker
   include GameStats
   include LeagueStats
   include TeamStats
+  include SeasonStats
   attr_reader :games, :teams, :game_team_stats
 
   def initialize(locations)
