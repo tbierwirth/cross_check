@@ -11,4 +11,22 @@ module SeasonStats
     game_ids
   end
 
+  def most_accurate_team(season_id)
+    team_shots = Hash.new(0)
+    team_goals = Hash.new(0)
+    game_ids = get_game_ids(season_id)
+    @game_team_stats.each do |game|
+      game_ids.each do |id|
+        if game.game_id == id
+          team_shots[name(game.team_id)] += game.shots.to_i
+          team_goals[name(game.team_id)] += game.goals.to_i
+        end
+      end
+    end
+    accuracy = team_goals.merge(team_shots) do |name, goals, shots|
+      goals.to_f / shots.to_f
+    end
+    (accuracy.max_by{|name, accuracy| accuracy})[0]
+  end
+
 end
