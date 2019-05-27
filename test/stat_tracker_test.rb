@@ -8,7 +8,8 @@ require './lib/team_info'
 require './lib/stat_tracker'
 require './lib/modules/game_stats'
 require './lib/modules/league_stats'
-require './lib/modules/team_stats.rb'
+require './lib/modules/team_stats'
+require './lib/modules/season_statistics'
 
 require 'pry'
 
@@ -311,4 +312,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 0.52, @stat_tracker.average_win_percentage("18")
   end
 
+  def test_biggest_bust
+    assert_equal "Lightning", @stat_tracker.biggest_bust("20132014")
+  end
 end
