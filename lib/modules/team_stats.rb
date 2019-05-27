@@ -77,7 +77,7 @@ module TeamStats
     relevant_games.map do |game|
       if team_id == game.home_team_id && game.home_goals > game.away_goals
         #wins[team_id] += 1
-        #commented out because adding up all of team_id's wins moves it to the top of the list. Not what we want. 
+        #commented out because adding up all of team_id's wins moves it to the top of the list. Not what we want.
       elsif team_id == game.home_team_id && game.home_goals < game.away_goals
         wins[game.away_team_id] += 1
       elsif team_id == game.away_team_id && game.home_goals < game.away_goals
@@ -97,4 +97,22 @@ module TeamStats
     end
     team.team_name
   end
+
+  def average_win_percentage(team_id)
+  #Average win percentage of all games for a team.
+    relevant_games = @games.find_all do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
+    wins = Hash.new(0)
+    relevant_games.map do |game|
+      if team_id == game.home_team_id && game.home_goals > game.away_goals
+        wins[team_id] += 1
+      elsif team_id == game.away_team_id && game.home_goals < game.away_goals
+        wins[team_id] += 1
+      end
+    end
+    win_percentage = wins[team_id].to_f / relevant_games.length
+    win_percentage.round(2)
+  end
+
 end
