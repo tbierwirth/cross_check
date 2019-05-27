@@ -327,4 +327,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 0.21, @stat_tracker.power_play_goal_percentage("20142015")
   end
 
+  def test_most_hits_in_season
+    assert_equal "King", @stat_tracker.most_hits("20132014")
+    assert_equal "Islanders", @stat_tracker.most_hits("20142015")
+  end
+
 end
