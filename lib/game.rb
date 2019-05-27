@@ -7,7 +7,8 @@ class Game
               :away_goals,
               :home_goals,
               :outcome,
-              :team_name
+              :team_name,
+              :type
 
   def initialize(row)
     @game_id = row["game_id"]
