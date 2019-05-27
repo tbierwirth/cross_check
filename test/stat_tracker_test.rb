@@ -317,4 +317,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Flames", @stat_tracker.most_accurate_team("20142015")
   end
 
+  def test_least_accurate_team
+    assert_equal "Sabres", @stat_tracker.least_accurate_team("20132014")
+    assert_equal "Coyotes", @stat_tracker.least_accurate_team("20142015")
+  end
+
 end
