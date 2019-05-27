@@ -47,4 +47,19 @@ module SeasonStats
     (accuracy.min_by{|name, accuracy| accuracy})[0]
   end
 
+  def power_play_goal_percentage(season_id)
+    game_ids = get_game_ids(season_id)
+    goals = 0
+    power_play_goals = 0
+    @game_team_stats.each do |game|
+      game_ids.each do |id|
+        if game.game_id == id
+          goals += game.goals.to_i
+          power_play_goals += game.power_play_goals.to_i
+        end
+      end
+    end
+    (power_play_goals / goals.to_f).round(2)
+  end
+
 end
