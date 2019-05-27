@@ -58,4 +58,48 @@ module TeamStats
     team.team_name
   end
 
+  def reg_season_goals_against(team_id)
+    reg_season_goals = Hash.new(0)
+    @games.each do |game|
+      if game.home_team_id == team_id && game.type == "R"
+        reg_season_goals[game.season] += game.away_goals.to_i
+      elsif game.away_team_id == team_id && game.type == "R"
+        reg_season_goals[game.season] += game.home_goals.to_i
+      end
+    end
+    reg_season_goals
+  end
+
+  def post_season_goals_against(team_id)
+    post_season_goals = Hash.new(0)
+    @games.each do |game|
+      if game.home_team_id == team_id && game.type == "P"
+        post_season_goals[game.season] += game.away_goals.to_i
+      elsif game.away_team_id == team_id && game.type == "P"
+        post_season_goals[game.season] += game.home_goals.to_i
+      end
+    end
+    post_season_goals
+  end
+
+  def reg_season_games(team_id)
+    reg_games_by_season = Hash.new(0)
+    games.each do |game|
+      if (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == "R"
+        reg_games_by_season[game.season] += 1
+      end
+    end
+    reg_games_by_season
+  end
+
+  def post_season_games(team_id)
+    post_games_by_season = Hash.new(0)
+    games.each do |game|
+      if (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == "P"
+        post_games_by_season[game.season] += 1
+      end
+    end
+    post_games_by_season
+  end
+
 end
