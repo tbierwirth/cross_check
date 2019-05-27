@@ -164,4 +164,8 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Red Wings", @stat_tracker.rival("18")
   end
 
+  def test_can_calculate_average_win_percentage
+
+    assert_equal 0.52, @stat_tracker.average_win_percentage("18")
+  end
 end
