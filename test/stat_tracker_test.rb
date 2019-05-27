@@ -332,4 +332,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Islanders", @stat_tracker.most_hits("20142015")
   end
 
+  def test_fewest_hits_in_season
+    assert_equal "Devils", @stat_tracker.fewest_hits("20132014")
+    assert_equal "Wild", @stat_tracker.fewest_hits("20142015")
+  end
+
 end
