@@ -151,8 +151,11 @@ class StatTrackerTest < MiniTest::Test
       "abbreviation" => "PHI",
       "link" => "/api/v1/teams/4"
     }
-
     assert_equal expected, @stat_tracker.team_info("4")
   end
 
+  def test_for_lowest_win_percentage_against_given_team
+    #favorite_opponent"
+    assert_equal "Oilers", @stat_tracker.favorite_opponent("18")
+  end
 end
