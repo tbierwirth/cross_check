@@ -328,7 +328,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_most_hits_in_season
-    assert_equal "King", @stat_tracker.most_hits("20132014")
+    assert_equal "Kings", @stat_tracker.most_hits("20132014")
     assert_equal "Islanders", @stat_tracker.most_hits("20142015")
   end
 
