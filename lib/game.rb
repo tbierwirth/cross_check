@@ -9,8 +9,8 @@ class Game
               :outcome,
               :away_team_id,
               :team_name,
-              :home_team_id
-
+              :home_team_id,
+              :type
 
   def initialize(row)
     @game_id = row["game_id"]
