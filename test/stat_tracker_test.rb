@@ -62,7 +62,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
-  def test_average_number_of_goals_in_a_game_by_season
+  def test_average_goals_by_season
     expected = {"20122013" => 5.40,"20162017"=> 5.51, "20142015"=> 5.43, "20152016"=> 5.41, "20132014"=> 5.50, "20172018"=> 5.94}
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
@@ -368,5 +368,5 @@ class StatTrackerTest < MiniTest::Test
     expected = ["Joel Quenneville", 0.5643564356435644]
     assert_equal expected, @stat_tracker.win_percentage("20132014").first
   end
-  
+
 end
