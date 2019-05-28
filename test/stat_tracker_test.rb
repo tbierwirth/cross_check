@@ -123,12 +123,20 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
-  def test_can_find_highest_scoring_visitor
+  def test_highest_scoring_visitor
     expected = "Capitals"
     assert_equal expected, @stat_tracker.highest_scoring_visitor
   end
 
-  def test_can_find_lowest_scoring_visitor
+  def test_total_away_goals_by_team_id
+    assert_equal ["3", 735], @stat_tracker.total_away_goals_by_team_id.first
+  end
+
+  def test_total_away_games_by_team_id
+    assert_equal ["3", 266], @stat_tracker.total_away_games_by_team_id.first
+  end
+
+  def test_lowest_scoring_visitor
     expected = "Sabres"
     assert_equal expected, @stat_tracker.lowest_scoring_visitor
   end
