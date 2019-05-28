@@ -183,7 +183,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_seasonal_summary
-    skip
     expected = {
       "20162017" => {
         postseason: {
