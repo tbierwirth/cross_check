@@ -359,4 +359,14 @@ class StatTrackerTest < MiniTest::Test
   def test_games_lost
     assert_equal ["Joel Quenneville", 44], @stat_tracker.games_lost("20132014").first
   end
+
+  def test_games_played
+    assert_equal ["Joel Quenneville", 101], @stat_tracker.games_played("20132014").first
+  end
+
+  def test_win_percentage
+    expected = ["Joel Quenneville", 0.5643564356435644]
+    assert_equal expected, @stat_tracker.win_percentage("20132014").first
+  end
+  
 end
