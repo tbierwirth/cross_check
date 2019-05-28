@@ -316,4 +316,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Lightning", @stat_tracker.biggest_bust("20132014")
     assert_equal "Jets", @stat_tracker.biggest_bust("20142015")
   end
+
+  def test_biggest_surprise
+    assert_equal "Kings", @stat_tracker.biggest_surprise("20132014")
+    assert_equal "Blackhawks", @stat_tracker.biggest_surprise("20142015")
+  end
 end
