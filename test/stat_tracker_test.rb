@@ -9,7 +9,7 @@ require './lib/stat_tracker'
 require './lib/modules/game_stats'
 require './lib/modules/league_stats'
 require './lib/modules/team_stats'
-require './lib/modules/season_statistics'
+require './lib/modules/season_stats'
 
 require 'pry'
 
