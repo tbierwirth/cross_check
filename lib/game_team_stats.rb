@@ -3,7 +3,11 @@ class GameTeamStats
               :hoa,
               :game_id,
               :goals,
-              :won  
+              :won,
+              :shots,
+              :power_play_goals,
+              :hits,
+              :head_coach
 
   def initialize(row)
     @game_id = row["game_id"]

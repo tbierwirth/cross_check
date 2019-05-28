@@ -161,18 +161,37 @@ module TeamStats
   end
 
   def seasonal_summary(team_id)
-    season_summary_hash = {}
-    post_reg_hash = {
-     postseason: nil,
-     regular_season: nil
-    }
+    season_summary = {}
+    rswp = reg_season_win_percentage(team_id)
+    pswp = post_season_win_percentage(team_id)
+    reg_goals = reg_season_goals(team_id)
+    post_goals = post_season_goals(team_id)
+    reg_goals_against = reg_season_goals_against(team_id)
+    post_goals_against = post_season_goals_against(team_id)
+    reg_goals_avg = reg_season_goals_average(team_id)
+    post_goals_avg = post_season_goals_average(team_id)
+    reg_goals_against_avg = reg_goals_against_average(team_id)
+    post_goals_against_avg = post_goals_against_average(team_id)
+
     @games.each do |game|
-        season_summary_hash[game.season] = post_reg_hash
+        season_summary[game.season] = Hash.new
+        season_summary[game.season][:regular_season] = Hash.new
+        season_summary[game.season][:regular_season][:win_percentage] = rswp[game.season]
+        season_summary[game.season][:regular_season][:total_goals_scored] = reg_goals[game.season]
+        season_summary[game.season][:regular_season][:total_goals_against] = reg_goals_against[game.season]
+        season_summary[game.season][:regular_season][:average_goals_scored] = reg_goals_avg[game.season]
+        season_summary[game.season][:regular_season][:average_goals_against] = reg_goals_against_avg[game.season]
     end
-    merged_hash = season_summary_hash.merge(reg_season_goals(team_id)) do |season, ov, goals|
-      goals
-      end
-    merged_hash
+
+    @games.each do |game|
+      season_summary[game.season][:postseason] = Hash.new
+      season_summary[game.season][:postseason][:win_percentage] = pswp[game.season]
+      season_summary[game.season][:postseason][:total_goals_scored] = post_goals[game.season]
+      season_summary[game.season][:postseason][:total_goals_against] = post_goals_against[game.season]
+      season_summary[game.season][:postseason][:average_goals_scored] = post_goals_avg[game.season]
+      season_summary[game.season][:postseason][:average_goals_against] = post_goals_against_avg[game.season]
+    end
+    season_summary
   end
 
   def reg_season_win_percentage(team_id)

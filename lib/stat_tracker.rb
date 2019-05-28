@@ -4,10 +4,10 @@ require 'pry'
 require_relative './game'
 require_relative './game_team_stats'
 require_relative './team_info'
-require './lib/modules/game_stats'
-require './lib/modules/league_stats'
-require './lib/modules/team_stats'
-require './lib/modules/season_stats'
+require_relative './modules/game_stats'
+require_relative './modules/league_stats'
+require_relative './modules/team_stats'
+require_relative './modules/season_stats'
 
 class StatTracker
   include GameStats
