@@ -311,6 +311,16 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 0.52, @stat_tracker.average_win_percentage("18")
   end
 
+  def test_biggest_bust
+    assert_equal "Lightning", @stat_tracker.biggest_bust("20132014")
+    assert_equal "Jets", @stat_tracker.biggest_bust("20142015")
+  end
+
+  def test_biggest_surprise
+    assert_equal "Kings", @stat_tracker.biggest_surprise("20132014")
+    assert_equal "Blackhawks", @stat_tracker.biggest_surprise("20142015")
+  end
+
   def test_most_accurate_team
     assert_equal "Ducks", @stat_tracker.most_accurate_team("20132014")
     assert_equal "Flames", @stat_tracker.most_accurate_team("20142015")
@@ -337,14 +347,12 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_can_return_the_worst_coach_of_season
-
     assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
     assert_equal "Craig MacTavish", @stat_tracker.worst_coach("20142015")
   end
 
   def test_can_return_the_best_coach_of_season
-
-  assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
-  assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
   end
 end
