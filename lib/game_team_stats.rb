@@ -4,6 +4,9 @@ class GameTeamStats
               :game_id,
               :goals,
               :won,
+              :shots,
+              :power_play_goals,
+              :hits,
               :head_coach
 
   def initialize(row)

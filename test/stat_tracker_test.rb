@@ -9,7 +9,7 @@ require './lib/stat_tracker'
 require './lib/modules/game_stats'
 require './lib/modules/league_stats'
 require './lib/modules/team_stats'
-require './lib/modules/season_statistics'
+require './lib/modules/season_stats'
 
 require 'pry'
 
@@ -183,7 +183,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_seasonal_summary
-    skip
     expected = {
       "20162017" => {
         postseason: {
@@ -310,6 +309,31 @@ class StatTrackerTest < MiniTest::Test
 
   def test_can_calculate_average_win_percentage
     assert_equal 0.52, @stat_tracker.average_win_percentage("18")
+  end
+
+  def test_most_accurate_team
+    assert_equal "Ducks", @stat_tracker.most_accurate_team("20132014")
+    assert_equal "Flames", @stat_tracker.most_accurate_team("20142015")
+  end
+
+  def test_least_accurate_team
+    assert_equal "Sabres", @stat_tracker.least_accurate_team("20132014")
+    assert_equal "Coyotes", @stat_tracker.least_accurate_team("20142015")
+  end
+
+  def test_power_play_goal_percentage
+    assert_equal 0.22, @stat_tracker.power_play_goal_percentage("20132014")
+    assert_equal 0.21, @stat_tracker.power_play_goal_percentage("20142015")
+  end
+
+  def test_most_hits_in_season
+    assert_equal "Kings", @stat_tracker.most_hits("20132014")
+    assert_equal "Islanders", @stat_tracker.most_hits("20142015")
+  end
+
+  def test_fewest_hits_in_season
+    assert_equal "Devils", @stat_tracker.fewest_hits("20132014")
+    assert_equal "Wild", @stat_tracker.fewest_hits("20142015")
   end
 
   def test_can_return_the_worst_coach_of_season

@@ -179,7 +179,7 @@ module LeagueStats
 
   def count_of_teams
     teams = []
-    @teams.count do |team|
+    @teams.each do |team|
       teams << team.team_name
     end
     teams.uniq.count
