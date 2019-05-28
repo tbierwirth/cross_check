@@ -8,7 +8,8 @@ require './lib/team_info'
 require './lib/stat_tracker'
 require './lib/modules/game_stats'
 require './lib/modules/league_stats'
-require './lib/modules/team_stats.rb'
+require './lib/modules/team_stats'
+require './lib/modules/season_statistics'
 
 require 'pry'
 
@@ -309,6 +310,12 @@ class StatTrackerTest < MiniTest::Test
 
   def test_can_calculate_average_win_percentage
     assert_equal 0.52, @stat_tracker.average_win_percentage("18")
+  end
+
+  def test_can_return_the_worst_coach_of_a_season
+
+    assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
+    assert_equal "Craig MacTavish", @stat_tracker.worst_coach("20142015")
   end
 
 end
