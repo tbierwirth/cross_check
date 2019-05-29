@@ -315,8 +315,12 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.team_info("4")
   end
 
-  def test_for_lowest_win_percentage_against_given_team
+  def test_favorite_opponent
     assert_equal "Oilers", @stat_tracker.favorite_opponent("18")
+  end
+
+  def test_relevant_games
+    assert_equal  "2016030231", @stat_tracker.relevant_games.first.game_id
   end
 
   def test_for_highest_win_percentage_against_given_team
