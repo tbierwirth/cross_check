@@ -62,8 +62,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
-  def test_average_number_of_goals_in_a_game_by_season
+  def test_average_number_of_goals_by_season
     expected = {"20122013" => 5.40}
+
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
@@ -124,23 +125,40 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
-  def test_can_find_highest_scoring_visitor
+  def test_total_away_goals_by_team_id
+    assert_equal ["3", 65], @stat_tracker.total_away_goals_by_team_id.first
+  end
+
+  def test_total_away_games_by_team_id
+    assert_equal ["3", 31], @stat_tracker.total_away_games_by_team_id.first
+  end
+
+  def test_total_home_goals_by_team_id
+    assert_equal ["6", 106], @stat_tracker.total_home_goals_by_team_id.first
+  end
+
+  def test_total_home_games_by_team_id
+    assert_equal  ["6", 36], @stat_tracker.total_home_games_by_team_id.first
+  end
+
+  def test_highest_scoring_visitor
     expected = "Penguins"
     assert_equal expected, @stat_tracker.highest_scoring_visitor
   end
 
-  def test_can_find_lowest_scoring_visitor
+  def test_lowest_scoring_visitor
     expected = "Devils"
     assert_equal expected, @stat_tracker.lowest_scoring_visitor
   end
 
-  def test_can_find_lowest_scoring_home_team
+  def test_lowest_scoring_home_team
     expected = "Wild"
     assert_equal expected, @stat_tracker.lowest_scoring_home_team
   end
 
-  def test_can_find_highest_scoring_home_team
+  def test_highest_scoring_home_team
     expected = "Lightning"
+
     assert_equal expected, @stat_tracker.highest_scoring_home_team
   end
 
@@ -201,7 +219,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.seasonal_summary("18")
   end
 
-  def test_it_can_return_team_info_by_team_id
+  def test_team_info
     expected = {
       "team_id" => "4",
       "franchise_id" => "16",
@@ -213,16 +231,17 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.team_info("4")
   end
 
-  def test_for_lowest_win_percentage_against_given_team
+  def test_favorite_opponent
     assert_equal "Sharks", @stat_tracker.favorite_opponent("18")
   end
 
-  def test_for_highest_win_percentage_against_given_team
+  def test_relevant_games
     assert_equal "Ducks", @stat_tracker.rival("18")
   end
 
-  def test_can_calculate_average_win_percentage
+  def test_average_win_percentage
     assert_equal 0.33, @stat_tracker.average_win_percentage("18")
+
   end
 
   def test_biggest_bust
@@ -253,11 +272,17 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Devils", @stat_tracker.fewest_hits("20122013")
   end
 
-  def test_can_return_the_worst_coach_of_season
-    assert_equal "Martin Raymond", @stat_tracker.worst_coach("20122013")
+  def test_games_lost
+    assert_equal ["John Tortorella", 29], @stat_tracker.games_lost("20122013").first
   end
 
-  def test_can_return_the_best_coach_of_season
-    assert_equal "Dan Lacroix", @stat_tracker.winningest_coach("20122013")
+  def test_games_played
+    assert_equal ["John Tortorella", 60], @stat_tracker.games_played("20122013").first
   end
+
+  def test_win_percentage
+    expected = ["John Tortorella", 0.5166666666666666]
+    assert_equal expected, @stat_tracker.win_percentage("20122013").first
+  end
+
 end
