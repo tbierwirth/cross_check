@@ -274,6 +274,14 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Devils", @stat_tracker.fewest_hits("20122013")
   end
 
+  def test_worst_coach
+    assert_equal "Martin Raymond", @stat_tracker.worst_coach("20122013")
+  end
+
+  def test_winningest_coach
+    assert_equal "Dan Lacroix", @stat_tracker.winningest_coach("20122013")
+  end
+
   def test_games_lost
     assert_equal ["John Tortorella", 29], @stat_tracker.games_lost("20122013").first
   end
