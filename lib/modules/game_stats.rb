@@ -2,17 +2,16 @@ module GameStats
 
   def percentage_home_wins
     total_wins = @games.count do |game|
-      # account for shootouts
       game.outcome == ("home win REG") || game.outcome == ("home win OT") || game.outcome == ("home win SO")
     end
-    win_percentage = ((total_wins.to_f / @games.count)).round(2)
+    ((total_wins.to_f / @games.count)).round(2)
   end
 
   def percentage_visitor_wins
     total_wins = @games.count do |game|
       game.outcome == ("away win REG") || game.outcome == ("away win OT") || game.outcome == ("away win SO")
     end
-    win_percentage = ((total_wins.to_f / @games.count)).round(2)
+    ((total_wins.to_f / @games.count)).round(2)
   end
 
   def average_goals_per_game
