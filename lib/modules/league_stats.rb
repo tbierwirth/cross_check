@@ -44,7 +44,13 @@ module LeagueStats
           the_worst << team
         end
     end
-    the_worst
+    worst_home_fans = []
+    @teams.each do |team|
+      the_worst.find_all do |bad_team|
+        worst_home_fans << team.team_name if team.team_id == bad_team
+      end
+    end
+    worst_home_fans
   end
 
   def home_wins_by_team
