@@ -1,29 +1,49 @@
 module TeamStats
 
-  def most_goals_scored(id)
+  def goals_scored(id)
     goals = []
-    @games.select do |game|
+    @games.map do |game|
       if game.away_team_id == id
         goals << game.away_goals
       elsif game.home_team_id == id
         goals << game.home_goals
       end
     end
-    goals.max
+    goals
+  end
+
+  def most_goals_scored(id)
+    goals_scored(id).max
   end
 
   def fewest_goals_scored(id)
-    goals = []
-    @games.select do |game|
-      if game.away_team_id == id
-        goals << game.away_goals
-      elsif game.home_team_id == id
-        goals << game.home_goals
-      end
-    end
-    goals.min
+    goals_scored(id).min
   end
 
+  def games_played(id)
+    games = Hash.new(0)
+    @games.map do |game|
+      if game.away_team_id == id
+        games[game.home_team_id] += 1
+      else game.home_team_id == id
+        games[game.away_team_id] += 1
+      end
+    end
+    games
+  end
+
+  def games_won(id)
+    wins = Hash.new(0)
+    @games.map do |game|
+      if game.outcome.include?("away win")
+        wins[game.home_team_id] += 1
+      else game.outcome.include?("home win")
+          wins[game.away_team_id] += 1
+      end
+    end
+    wins
+  end
+  
   def head_to_head(id)
     wins = Hash.new(0)
     games = Hash.new(0)
@@ -56,7 +76,7 @@ module TeamStats
     end
     team.team_name
   end
-  
+
   def best_season(team_id)
     win_pct_by_season(team_id)
     best_season = win_pct_by_season(team_id).max_by {|season, win_pct| win_pct}
