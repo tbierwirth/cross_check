@@ -303,7 +303,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.seasonal_summary("18")
   end
 
-  def test_it_can_return_team_info_by_team_id
+  def test_team_info
     expected = {
       "team_id" => "4",
       "franchise_id" => "16",
@@ -323,11 +323,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal  "2016030231", @stat_tracker.relevant_games.first.game_id
   end
 
-  def test_for_highest_win_percentage_against_given_team
+  def test_rival
     assert_equal "Red Wings", @stat_tracker.rival("18")
   end
 
-  def test_can_calculate_average_win_percentage
+  def test_average_win_percentage
     assert_equal 0.52, @stat_tracker.average_win_percentage("18")
   end
 
