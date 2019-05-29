@@ -56,7 +56,7 @@ module TeamStats
     end
     team.team_name
   end
-  
+
   def best_season(team_id)
     win_pct_by_season(team_id)
     best_season = win_pct_by_season(team_id).max_by {|season, win_pct| win_pct}
@@ -292,15 +292,16 @@ module TeamStats
     end
   end
 
-  def favorite_opponent(team_id)
-    #returns name of opponent that has lowest win % against given team
+  def relevant_games(team_id)
     relevant_games = @games.find_all do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
+  end
 
-    games_played = Hash.new(0)
+  def favorite_opponent(team_id)
+        games_played = Hash.new(0)
     #{opponent_id => times opponent played target_team}
-    relevant_games.map do |game|
+    relevant_games(team_id).map do |game|
       if team_id == game.home_team_id
         opponent = game.away_team_id
         games_played[opponent] += 1
@@ -312,7 +313,7 @@ module TeamStats
 
     wins = Hash.new(0)
     #{oppenent_id => times that target_team has won against opponent}
-    relevant_games.map do |game|
+    relevant_games(team_id).map do |game|
       if team_id == game.home_team_id && game.home_goals > game.away_goals
         wins[team_id] += 1
       elsif team_id == game.home_team_id && game.home_goals < game.away_goals
