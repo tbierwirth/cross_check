@@ -238,12 +238,23 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_relevant_games
+    assert_equal "2012020231", @stat_tracker.relevant_games("18").first.game_id
+  end
+
+  def test_rival
     assert_equal "Ducks", @stat_tracker.rival("18")
+  end
+
+  def test_games_against_opponent_count
+    assert_equal ["17", 4], @stat_tracker.games_against_opponent_count("18").first
+  end
+
+  def test_opponent_team_wins
+    assert_equal ["24", 3], @stat_tracker.opponent_team_wins("18").first
   end
 
   def test_average_win_percentage
     assert_equal 0.33, @stat_tracker.average_win_percentage("18")
-
   end
 
   def test_biggest_bust
@@ -274,6 +285,14 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Devils", @stat_tracker.fewest_hits("20122013")
   end
 
+  def test_worst_coach
+    assert_equal "Martin Raymond", @stat_tracker.worst_coach("20122013")
+  end
+
+  def test_winningest_coach
+    assert_equal "Dan Lacroix", @stat_tracker.winningest_coach("20122013")
+  end
+
   def test_games_lost
     assert_equal ["John Tortorella", 29], @stat_tracker.games_lost("20122013").first
   end
@@ -283,8 +302,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_win_percentage
-    expected = ["John Tortorella", 0.5166666666666666]
-    assert_equal expected, @stat_tracker.win_percentage("20122013").first
+    expected = {"John Tortorella"=>0.5166666666666666, "Claude Julien"=>0.6, "Dan Bylsma"=>0.6984126984126984, "Mike Babcock"=>0.5, "Joel Quenneville"=>0.7323943661971831, "Michel Therrien"=>0.5660377358490566, "Paul MacLean"=>0.5172413793103448, "Mike Yeo"=>0.5094339622641509, "Darryl Sutter"=>0.5454545454545454, "Ken Hitchcock"=>0.5740740740740741, "Bruce Boudreau"=>0.6, "Jack Capuano"=>0.4814814814814815, "Adam Oates"=>0.5454545454545454, "Todd Richards"=>0.5, "Kirk Muller"=>0.39583333333333337, "Ron Rolston"=>0.4838709677419355, "Bob Hartley"=>0.39583333333333337, "Joe Sacco"=>0.33333333333333337, "Ralph Krueger"=>0.39583333333333337, "Peter DeBoer"=>0.39583333333333337, "Kevin Dineen"=>0.3125, "Todd McLellan"=>0.5423728813559322, "Claude Noel"=>0.5, "Glen Gulutzan"=>0.45833333333333337, "Dave Tippett"=>0.4375, "Alain Vigneault"=>0.5, "Lindy Ruff"=>0.3529411764705882, "Randy Carlyle"=>0.5272727272727273, "Peter Laviolette"=>0.47916666666666663, "Guy Boucher"=>0.4193548387096774, "Barry Trotz"=>0.33333333333333337, "Jon Cooper"=>0.2666666666666667, "Martin Raymond"=>0.0, "Dan Lacroix"=>1}
+    assert_equal expected, @stat_tracker.win_percentage("20122013")
   end
 
   def test_total_goals_for_all_games
@@ -414,4 +433,13 @@ class StatTrackerTest < MiniTest::Test
     expected = {"20122013"=>2.09}
     assert_equal expected, @stat_tracker.post_goals_against_average("16")
   end
+
+  def test_games_played
+    assert_equal ({"3"=>31, "6"=>34, "5"=>31, "17"=>34, "16"=>37, "9"=>30, "8"=>26, "30"=>29, "26"=>35, "19"=>29, "24"=>29, "2"=>27, "15"=>27, "29"=>26, "12"=>24, "1"=>24, "21"=>26, "22"=>25, "13"=>24, "10"=>28, "7"=>24, "52"=>24, "20"=>25, "27"=>25, "23"=>27, "14"=>24, "28"=>32, "25"=>25, "4"=>24}), @stat_tracker.team_games_played("18")
+  end
+
+  def test_games_won
+    assert_equal ({"3"=>29, "6"=>28, "5"=>19, "17"=>31, "16"=>19, "8"=>23, "9"=>28, "30"=>26, "26"=>30, "19"=>23, "24"=>22, "2"=>28, "15"=>25, "29"=>24, "12"=>29, "7"=>27, "20"=>29, "21"=>32, "22"=>29, "1"=>29, "13"=>33, "28"=>27, "52"=>24, "25"=>26, "27"=>27, "23"=>26, "10"=>26, "4"=>25, "14"=>30, "18"=>32}), @stat_tracker.team_games_won("18")
+  end
+
 end
