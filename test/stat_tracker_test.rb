@@ -285,4 +285,8 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.win_percentage("20122013").first
   end
 
+  def test_total_goals_for_all_games
+    assert_equal 4351, @stat_tracker.total_goals_for_all_games.sum
+  end
+
 end
