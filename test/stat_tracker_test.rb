@@ -374,4 +374,44 @@ class StatTrackerTest < MiniTest::Test
     expected = {"20122013"=>0.7}
     assert_equal expected, @stat_tracker.post_season_win_percentage("16")
   end
+
+  def test_reg_season_goals_for_specific_team
+    expected = {"20122013"=>155}
+    assert_equal expected, @stat_tracker.reg_season_goals("16")
+  end
+
+  def test_post_season_goals_for_specific_team
+    expected = {"20122013"=>64}
+    assert_equal expected, @stat_tracker.post_season_goals("16")
+  end
+
+  def test_reg_season_goals_average_for_specific_team
+    expected = {"20122013"=>3.23}
+    assert_equal expected, @stat_tracker.reg_season_goals_average("16")
+  end
+
+  def test_post_season_goals_average_for_specific_team
+    expected = {"20122013"=>2.78}
+    assert_equal expected, @stat_tracker.post_season_goals_average("16")
+  end
+
+  def test_reg_season_goals_against_for_specific_team
+    expected = {"20122013"=>102}
+    assert_equal expected, @stat_tracker.reg_season_goals_against("16")
+  end
+
+  def test_post_season_goals_against_for_specific_team
+    expected = {"20122013"=>48}
+    assert_equal expected, @stat_tracker.post_season_goals_against("16")
+  end
+
+  def test_reg_season_goals_against_average_for_specific_team
+    expected = {"20122013"=>2.13}
+    assert_equal expected, @stat_tracker.reg_goals_against_average("16")
+  end
+
+  def test_post_season_goals_against_average_for_specific_team
+    expected = {"20122013"=>2.09}
+    assert_equal expected, @stat_tracker.post_goals_against_average("16")
+  end
 end
