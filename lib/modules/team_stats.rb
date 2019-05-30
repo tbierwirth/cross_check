@@ -1,27 +1,47 @@
 module TeamStats
 
-  def most_goals_scored(id)
+  def goals_scored(id)
     goals = []
-    @games.select do |game|
+    @games.map do |game|
       if game.away_team_id == id
         goals << game.away_goals
       elsif game.home_team_id == id
         goals << game.home_goals
       end
     end
-    goals.max
+    goals
+  end
+
+  def most_goals_scored(id)
+    goals_scored(id).max
   end
 
   def fewest_goals_scored(id)
-    goals = []
-    @games.select do |game|
+    goals_scored(id).min
+  end
+
+  def team_games_played(id)
+    games = Hash.new(0)
+    @games.map do |game|
       if game.away_team_id == id
-        goals << game.away_goals
-      elsif game.home_team_id == id
-        goals << game.home_goals
+        games[game.home_team_id] += 1
+      else game.home_team_id == id
+        games[game.away_team_id] += 1
       end
     end
-    goals.min
+    games
+  end
+
+  def team_games_won(id)
+    wins = Hash.new(0)
+    @games.map do |game|
+      if game.outcome.include?("away win")
+        wins[game.home_team_id] += 1
+      else game.outcome.include?("home win")
+          wins[game.away_team_id] += 1
+      end
+    end
+    wins
   end
 
   def head_to_head(id)
@@ -296,18 +316,8 @@ module TeamStats
   end
 
   def favorite_opponent(team_id)
-        games_played = Hash.new(0)
+    games_played = Hash.new(0)
     #{opponent_id => times opponent played target_team}
-    relevant_games(team_id).map do |game|
-      if team_id == game.home_team_id
-        opponent = game.away_team_id
-        games_played[opponent] += 1
-      else
-        opponent = game.home_team_id
-        games_played[opponent] += 1
-      end
-    end
-
     wins = Hash.new(0)
     #{oppenent_id => times that target_team has won against opponent}
     relevant_games(team_id).map do |game|
@@ -334,10 +344,10 @@ module TeamStats
     team.team_name
   end
 
-  def rival(team_id)
+  def games_against_opponent_count(team_id)
     games_played = Hash.new(0)
     #{opponent_id => times opponent played target_team}
-    relevant_games(team_id).map do |game|
+    relevant_games(team_id).each do |game|
       if team_id == game.home_team_id
         opponent = game.away_team_id
         games_played[opponent] += 1
@@ -346,16 +356,26 @@ module TeamStats
         games_played[opponent] += 1
       end
     end
+    games_played
+  end
 
+  def opponent_team_wins(team_id)
     wins = Hash.new(0)
     #{oppenent_id => times that target_team has won against opponent}
-    relevant_games(team_id).map do |game|
+    relevant_games(team_id).each do |game|
       if team_id == game.home_team_id && game.home_goals < game.away_goals
         wins[game.away_team_id] += 1
       elsif team_id == game.away_team_id && game.home_goals > game.away_goals
         wins[game.home_team_id] += 1
       end
     end
+    wins
+  end
+
+  def rival(team_id)
+    wins = opponent_team_wins(team_id)
+    games_played = games_against_opponent_count(team_id)
+
     win_percentage = games_played.merge(wins) do |opponent_id, num_of_games, num_won|
       num_won / num_of_games.to_f
     end
@@ -380,4 +400,5 @@ module TeamStats
     win_percentage = wins[team_id].to_f / relevant_games(team_id).length
     win_percentage.round(2)
   end
+
 end
