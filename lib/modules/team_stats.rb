@@ -298,18 +298,8 @@ module TeamStats
   end
 
   def favorite_opponent(team_id)
-        games_played = Hash.new(0)
+    games_played = Hash.new(0)
     #{opponent_id => times opponent played target_team}
-    relevant_games(team_id).map do |game|
-      if team_id == game.home_team_id
-        opponent = game.away_team_id
-        games_played[opponent] += 1
-      else
-        opponent = game.home_team_id
-        games_played[opponent] += 1
-      end
-    end
-
     wins = Hash.new(0)
     #{oppenent_id => times that target_team has won against opponent}
     relevant_games(team_id).map do |game|
@@ -392,4 +382,5 @@ module TeamStats
     win_percentage = wins[team_id].to_f / relevant_games(team_id).length
     win_percentage.round(2)
   end
+
 end
