@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -361,5 +363,15 @@ class StatTrackerTest < MiniTest::Test
   def test_post_win_pct_by_team_for_season
     expected = {"6"=>0.64, "3"=>0.42, "16"=>0.7, "17"=>0.5, "9"=>0.5, "8"=>0.2, "30"=>0.2, "19"=>0.33, "26"=>0.5, "24"=>0.43, "5"=>0.53, "2"=>0.33, "15"=>0.43, "10"=>0.43, "28"=>0.64, "23"=>4}
     assert_equal expected, @stat_tracker.post_season_win_pct_by_team("20122013")
+  end
+
+  def test_reg_win_pct_by_season_for_team
+    expected = {"20122013"=>0.75}
+    assert_equal expected, @stat_tracker.reg_season_win_percentage("16")
+  end
+
+  def test_post_win_pct_by_season_for_team
+    expected = {"20122013"=>0.7}
+    assert_equal expected, @stat_tracker.post_season_win_percentage("16")
   end
 end
