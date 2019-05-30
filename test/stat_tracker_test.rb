@@ -238,12 +238,23 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_relevant_games
+    assert_equal "2012020231", @stat_tracker.relevant_games("18").first.game_id
+  end
+
+  def test_rival
     assert_equal "Ducks", @stat_tracker.rival("18")
+  end
+
+  def test_games_against_opponent_count
+    assert_equal ["17", 4], @stat_tracker.games_against_opponent_count("18").first
+  end
+
+  def test_opponent_team_wins
+    assert_equal ["24", 3], @stat_tracker.opponent_team_wins("18").first
   end
 
   def test_average_win_percentage
     assert_equal 0.33, @stat_tracker.average_win_percentage("18")
-
   end
 
   def test_biggest_bust
