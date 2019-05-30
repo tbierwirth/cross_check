@@ -20,7 +20,7 @@ module TeamStats
     goals_scored(id).min
   end
 
-  def games_played(id)
+  def team_games_played(id)
     games = Hash.new(0)
     @games.map do |game|
       if game.away_team_id == id
@@ -32,7 +32,7 @@ module TeamStats
     games
   end
 
-  def games_won(id)
+  def team_games_won(id)
     wins = Hash.new(0)
     @games.map do |game|
       if game.outcome.include?("away win")
@@ -43,7 +43,7 @@ module TeamStats
     end
     wins
   end
-  
+
   def head_to_head(id)
     wins = Hash.new(0)
     games = Hash.new(0)
