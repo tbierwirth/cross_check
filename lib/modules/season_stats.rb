@@ -210,7 +210,7 @@ module SeasonStats
   end
 
   def win_percentage(season)
-    win_percentage = games_lost(season).merge(games_played(season)){|coach, lost, played| 1 - (lost / played.to_f)}
+    games_lost(season).merge(games_played(season)){|coach, lost, played| 1 - (lost / played.to_f)}
   end
 
 end
