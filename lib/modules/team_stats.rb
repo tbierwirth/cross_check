@@ -78,13 +78,11 @@ module TeamStats
   end
 
   def best_season(team_id)
-    win_pct_by_season(team_id)
     best_season = win_pct_by_season(team_id).max_by {|season, win_pct| win_pct}
     best_season.first
   end
 
   def worst_season(team_id)
-    win_pct_by_season(team_id)
     worst_season = win_pct_by_season(team_id).min_by {|season, win_pct| win_pct}
     worst_season.first
   end
@@ -312,7 +310,7 @@ module TeamStats
   end
 
   def relevant_games(team_id)
-    relevant_games = @games.find_all do |game|
+    @games.find_all do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
   end
