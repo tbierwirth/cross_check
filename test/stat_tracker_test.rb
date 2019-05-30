@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -285,4 +287,12 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.win_percentage("20122013").first
   end
 
+  def test_games_played
+    assert_equal ({"3"=>31, "6"=>34, "5"=>31, "17"=>34, "16"=>37, "9"=>30, "8"=>26, "30"=>29, "26"=>35, "19"=>29, "24"=>29, "2"=>27, "15"=>27, "29"=>26, "12"=>24, "1"=>24, "21"=>26, "22"=>25, "13"=>24, "10"=>28, "7"=>24, "52"=>24, "20"=>25, "27"=>25, "23"=>27, "14"=>24, "28"=>32, "25"=>25, "4"=>24}), @stat_tracker.team_games_played("18")
+  end
+
+  def test_games_won
+    assert_equal ({"3"=>29, "6"=>28, "5"=>19, "17"=>31, "16"=>19, "8"=>23, "9"=>28, "30"=>26, "26"=>30, "19"=>23, "24"=>22, "2"=>28, "15"=>25, "29"=>24, "12"=>29, "7"=>27, "20"=>29, "21"=>32, "22"=>29, "1"=>29, "13"=>33, "28"=>27, "52"=>24, "25"=>26, "27"=>27, "23"=>26, "10"=>26, "4"=>25, "14"=>30, "18"=>32}), @stat_tracker.team_games_won("18")
+  end
+  
 end
