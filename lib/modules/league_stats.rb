@@ -196,7 +196,6 @@ module LeagueStats
       away_goals / away_games.to_f
     end
     highest_average = average.max_by{|team_id, goals| goals}
-
     team = @teams.find{|team| highest_average.first == team.team_id}
     team.team_name
   end
@@ -206,7 +205,6 @@ module LeagueStats
       away_goals / away_games.to_f
     end
     lowest_average = average.min_by{|team_id, goals| goals}
-
     team = @teams.find{|team| lowest_average.first == team.team_id}
     team.team_name
   end

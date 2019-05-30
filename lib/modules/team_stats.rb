@@ -292,7 +292,7 @@ module TeamStats
   end
 
   def relevant_games(team_id)
-    relevant_games = @games.find_all do |game|
+    @games.find_all do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
   end
