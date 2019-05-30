@@ -289,4 +289,13 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 4351, @stat_tracker.total_goals_for_all_games.sum
   end
 
+  def test_total_wins_by_team
+    expected = {"6"=>42, "3"=>31, "16"=>52, "17"=>31, "8"=>30, "9"=>30, "30"=>27, "19"=>31, "26"=>36, "24"=>33, "5"=>44, "2"=>26, "15"=>30, "29"=>25, "27"=>21, "10"=>29, "1"=>19, "18"=>16, "4"=>23, "52"=>24, "25"=>22, "7"=>21, "28"=>33, "13"=>15, "22"=>19, "23"=>26, "20"=>19, "21"=>16, "14"=>18, "12"=>19}
+    assert_equal expected, @stat_tracker.total_wins_by_team
+  end
+
+  def test_games_by_team_game_team_stats
+    expected = {"3"=>60, "6"=>70, "5"=>63, "17"=>63, "16"=>71, "9"=>58, "8"=>53, "30"=>53, "26"=>66, "19"=>54, "24"=>55, "2"=>54, "15"=>55, "29"=>49, "12"=>48, "1"=>48, "27"=>48, "7"=>48, "20"=>48, "21"=>48, "22"=>48, "10"=>55, "13"=>48, "28"=>60, "18"=>48, "52"=>48, "4"=>48, "25"=>48, "23"=>52, "14"=>48}
+    assert_equal expected, @stat_tracker.games_by_team_game_team_stats
+  end
 end
