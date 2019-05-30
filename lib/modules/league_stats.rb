@@ -2,28 +2,12 @@
 module LeagueStats
 
   def winningest_team
-    total_wins_by_team = Hash.new(0)
-    games_by_team = Hash.new(0)
-    @game_team_stats.each do |game|
-      games_by_team[game.team_id] += 1
+    win_pct_by_team = {}
+    games_by_team_game_team_stats.each do |team, games|
+      win_pct_by_team[team] = (total_wins_by_team[team] / games.to_f).round(2)
     end
-
-    @game_team_stats.each do |game|
-      if game.won == "TRUE"
-        total_wins_by_team[game.team_id] += 1
-      end
-    end
-
-    games_by_team.each do |team, games|
-      total_wins_by_team[team] = (total_wins_by_team[team] / games.to_f).round(2)
-    end
-    best_team = total_wins_by_team.max_by {|team, win_pct| win_pct}
-    best_win_pct_team = @teams.find do |team|
-      if team.team_id == best_team[0]
-        team.team_name
-      end
-    end
-    best_win_pct_team.team_name
+    best_team = win_pct_by_team.max_by {|team, win_pct| win_pct}
+    team_name(best_team)
   end
 
   def best_fans
@@ -71,6 +55,10 @@ module LeagueStats
       end
     end
     away_wins_by_team
+  end
+
+  def total_wins_by_team
+    home_wins_by_team.merge(away_wins_by_team) {|team, home, away| home + away}
   end
 
   def games_by_team_game_team_stats
