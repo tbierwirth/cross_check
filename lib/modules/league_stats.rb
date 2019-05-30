@@ -15,22 +15,17 @@ module LeagueStats
       home_pct - away_pct
     end
     best_team_fans = winning_pct_diff.max_by {|team, pct_diff| pct_diff}
-    best_fans = @teams.find do |team|
-      team.team_id == best_team_fans[0]
-    end
-    best_fans.team_name
+    team_name(best_team_fans)
   end
 
   def worst_fans
     the_worst = []
     home_win_pct_by_team.each do |team, win_pct|
-        if away_win_pct_by_team[team] > win_pct
-          the_worst << team
-        end
+        the_worst << team if away_win_pct_by_team[team] > win_pct
     end
     worst_home_fans = []
     @teams.each do |team|
-      the_worst.find_all do |bad_team|
+      the_worst.map do |bad_team|
         worst_home_fans << team.team_name if team.team_id == bad_team
       end
     end
