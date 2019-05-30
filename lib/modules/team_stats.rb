@@ -58,13 +58,11 @@ module TeamStats
   end
 
   def best_season(team_id)
-    win_pct_by_season(team_id)
     best_season = win_pct_by_season(team_id).max_by {|season, win_pct| win_pct}
     best_season.first
   end
 
   def worst_season(team_id)
-    win_pct_by_season(team_id)
     worst_season = win_pct_by_season(team_id).min_by {|season, win_pct| win_pct}
     worst_season.first
   end
