@@ -302,4 +302,30 @@ class StatTrackerTest < MiniTest::Test
   def test_team_name_converter
     assert_equal "Blackhawks", @stat_tracker.team_name(["16",5])
   end
+
+  def test_win_pct_by_season_for_specific_team
+    expected = {"20122013"=>0.7323943661971831}
+    assert_equal expected, @stat_tracker.win_pct_by_season("16")
+  end
+
+  def test_wins_by_season_for_specific_team
+    expected = {"20122013"=>52}
+    assert_equal expected, @stat_tracker.wins_by_season("16")
+  end
+
+  def test_count_of_team_games_by_season_for_specific_team
+    expected = {"20122013"=>71}
+    assert_equal expected, @stat_tracker.count_of_team_games_by_season("16")
+  end
+
+  def test_post_season_games_for_specific_team
+    expected = {"20122013"=>23}
+    assert_equal expected, @stat_tracker.post_season_games("16")
+  end
+
+  def test_reg_season_games_for_specific_team
+    expected = {"20122013"=>48}
+    assert_equal expected, @stat_tracker.reg_season_games("16")
+  end
+
 end
