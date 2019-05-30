@@ -298,4 +298,8 @@ class StatTrackerTest < MiniTest::Test
     expected = {"3"=>60, "6"=>70, "5"=>63, "17"=>63, "16"=>71, "9"=>58, "8"=>53, "30"=>53, "26"=>66, "19"=>54, "24"=>55, "2"=>54, "15"=>55, "29"=>49, "12"=>48, "1"=>48, "27"=>48, "7"=>48, "20"=>48, "21"=>48, "22"=>48, "10"=>55, "13"=>48, "28"=>60, "18"=>48, "52"=>48, "4"=>48, "25"=>48, "23"=>52, "14"=>48}
     assert_equal expected, @stat_tracker.games_by_team_game_team_stats
   end
+
+  def test_team_name_converter
+    assert_equal "Blackhawks", @stat_tracker.team_name(["16",5])
+  end
 end
